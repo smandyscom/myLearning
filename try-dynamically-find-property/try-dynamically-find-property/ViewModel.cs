@@ -5,41 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.InteropServices.Expando;
+using System.Runtime.CompilerServices;
 
 namespace try_dynamically_find_property
 {
-    public class ObjectIndexer
-
-    {
-        
-        private Model m_model = new Model();
-        private Dictionary<string, Func<object>> m_modelProperties = new Dictionary<string, Func<object>>();
-
-        public object this[string key]
-        {
-            get
-            {
-                return m_modelProperties[key].Invoke();
-            }
-            set
-            {
-                //m_modelProperties[index.ToString()] = value;
-            }
-        }
-
-        public ObjectIndexer()
-        {
-            //Scan all properties from model
-            var properties = typeof(Model).GetProperties(System.Reflection.BindingFlags.Public);
-            foreach (var item in properties)
-            {
-                m_modelProperties.Add(item.Name, delegate { return item.GetValue(m_model); } );
-            }
-        }
-
-       
-    }
-
     public class ViewModel : INotifyPropertyChanged
     {
         /// <summary>
@@ -78,7 +47,7 @@ namespace try_dynamically_find_property
         /// TODO , when to raise
         /// </summary>
         /// <param name="key"></param>
-        internal void OnPropertyChanged(string key = "")
+        internal void OnPropertyChanged([CallerMemberName]string key = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(key));
         }
