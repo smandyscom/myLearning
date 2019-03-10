@@ -11,6 +11,9 @@
         <!--https://stackoverflow.com/questions/2552853/how-to-bind-multiple-values-to-a-single-wpf-textblock-->
         <!--<local:commandCarrier x:Name="carrier"/>-->
         
+        <!--binding to singleton source-->
+        <!--https://stackoverflow.com/questions/13604431/bind-datatemplate-to-external-data-source-->
+
         <!--binding to source itself is possible-->
         <local:commandImplement x:Name="implement"/>
     </Window.DataContext>
